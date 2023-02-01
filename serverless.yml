@@ -1,0 +1,25 @@
+
+service: juanjolescano-purchase-integrador
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource: arn:aws:dynamodb:us-east-1:450865910417:table/juanjolescano-purchase-integrador
+
+
+functions:
+  createPurchase:
+    handler: createPurchase.handler
+    description: 'An Api that create new purchase'
+    events:
+      - http:
+          path: purchase
+          method: POST
+
